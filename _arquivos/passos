@@ -1,0 +1,25 @@
+alterar namespace:
+    php artisan app:name CodeDelivery
+criar tabelas de usuario:
+    php artisan migrate
+criar migracao:
+    php artisan make:migration create_categories_table --create=categories
+    php artisan migrate
+criar model:
+    php artisan make:model Classe
+    criar o campo $fillable
+criar o seed:
+    adicionar a factory em ModelFactory
+    php artisan make:seed UserTableSeeder
+    ajustar em DatabaseSeeder
+    php artisan db:seed
+apaga tudo e roda tudo de novo:
+    php artisan migrate:refresh --seed
+
+para repositories - projeto em https://github.com/andersao/l5-repository:
+    composer require prettus/l5-repository
+    php artisan vendor:publish
+
+criando um provider (configurado pra quando instanciar um interface ele mapeie pra uma classe):
+    php artisan make:provider RepositoryServiceProvider
+    registrar em app.php: CodeDelivery\Providers\RepositoryServiceProvider::class,
