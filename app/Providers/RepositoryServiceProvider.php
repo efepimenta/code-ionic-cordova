@@ -8,25 +8,24 @@ use Illuminate\Support\ServiceProvider;
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
-
-    /**
      * Register the application services.
      *
      * @return void
      */
     public function register()
     {
-        $this->app->bind(
-            'CodeDelivery\Respositories\CategoryRepository',
-            'CodeDelivery\Respositories\CategoryRepositoryEloquent'
-        );
+        $model = [
+            'Category',
+            'Product',
+            'Client',
+            'User',
+            'Order',
+        ];
+        foreach ($model as $value){
+            $this->app->bind(
+                "CodeDelivery\\Repositories\\{$value}Repository",
+                "CodeDelivery\\Repositories\\{$value}RepositoryEloquent"
+            );
+        }
     }
 }

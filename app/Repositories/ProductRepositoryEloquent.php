@@ -24,8 +24,6 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
         return Product::class;
     }
 
-    
-
     /**
      * Boot up the repository, pushing criteria
      */
@@ -33,4 +31,5 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
 }

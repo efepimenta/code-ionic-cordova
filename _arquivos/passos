@@ -15,11 +15,28 @@ criar o seed:
     php artisan db:seed
 apaga tudo e roda tudo de novo:
     php artisan migrate:refresh --seed
-
 para repositories - projeto em https://github.com/andersao/l5-repository:
     composer require prettus/l5-repository
     php artisan vendor:publish
-
 criando um provider (configurado pra quando instanciar um interface ele mapeie pra uma classe):
     php artisan make:provider RepositoryServiceProvider
     registrar em app.php: CodeDelivery\Providers\RepositoryServiceProvider::class,
+instalar as views basicas:
+    https://github.com/bestmomo/scafold e seguir o readme
+criar controllers:
+    php artisan make:controller NomeDoController (--plain = arquivo vazio)
+criar as rotas:
+    Route::get('admin/categories', 'CategoriesController@index');
+rotas nomeadas:
+    Route::get('admin/categories/create', ['as' => 'admin.categories.create', 'uses' => 'CategoriesController@create']);
+    e os links viram <a href="{{ route('admin.categories.create') }}>Nova Categoria</a>
+trabalhar com formularios:
+    projeto em https://laravelcollective.com/docs/5.1/html
+custom requests:
+    php artisan make:request AdminCategorieRequest
+    depois configura a classe criada de acordo (em https://laravel.com/docs/5.1/validation)
+middleware
+    php artisan make:middleware CheckRole
+    adicionar o cabra nas rotas e configurar em kernel.php
+services (tive que fazer quando teve que alterar duas tabelas relacionadas):
+
