@@ -20,6 +20,7 @@ class RepositoryServiceProvider extends ServiceProvider
             'Client',
             'User',
             'Order',
+            'Cupom',
         ];
         foreach ($model as $value){
             $this->app->bind(

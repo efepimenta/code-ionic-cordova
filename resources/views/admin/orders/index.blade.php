@@ -4,7 +4,7 @@
 
     <div class="container">
         <h3>Pedidos</h3>
-        <a href="{{route('admin.orders.create')}}" class="btn btn-default">Novo Pedido</a>
+{{--        <a href="{{route('admin.orders.create')}}" class="btn btn-default">Novo Pedido</a>--}}
         <div class="table-responsive">
             <table class="table table-bordered table-hover table-striped">
                 <thead>

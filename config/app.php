@@ -141,6 +141,8 @@ return [
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         Bestmomo\Scafold\ScafoldServiceProvider::class,
 
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

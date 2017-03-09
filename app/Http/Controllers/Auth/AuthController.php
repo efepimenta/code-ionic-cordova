@@ -2,7 +2,9 @@
 
 namespace CodeDelivery\Http\Controllers\Auth;
 
-use CodeDelivery\User;
+use CodeDelivery\Models\User;
+use CodeDelivery\Repositories\ClientRepository;
+use CodeDelivery\Repositories\UserRepository;
 use Validator;
 use CodeDelivery\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -22,7 +24,6 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
     /**
      * Create a new authentication controller instance.
      *
