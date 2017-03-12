@@ -66,3 +66,8 @@ $factory->define(CodeDelivery\Models\Cupom::class, function (Faker\Generator $fa
     ];
 });
 
+$factory->define(CodeDelivery\Models\OauthClient::class, function () {
+    return [
+
+    ];
+});

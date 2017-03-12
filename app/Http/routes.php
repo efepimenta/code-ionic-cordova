@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::post('oauth/access_token', function() {
+    return Response::json(Authorizer::issueAccessToken());
+});
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth.checkrole:admin'], function () {
 
     Route::group(['prefix' => 'clients', 'as' => 'clients.'], function () {
@@ -67,4 +71,10 @@ Route::group(['prefix' => 'customer', 'as' => 'customer.', 'middleware' => 'auth
         Route::post('store', ['as' => 'store', 'uses' => 'CheckoutController@store']);
     });
 
+});
+
+Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => 'oauth'], function () {
+    Route::get('teste', function () {
+        return view('home');
+    });
 });
