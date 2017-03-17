@@ -19,7 +19,7 @@ class ClientCheckoutController extends Controller
     /**
      * @var OrderRepository
      */
-    private $orderrepository;
+    private $orderRepository;
     /**
      * @var UserRepository
      */
@@ -34,13 +34,13 @@ class ClientCheckoutController extends Controller
     private $orderService;
 
     public function __construct(
-        OrderRepository $orderrepository,
+        OrderRepository $orderRepository,
         UserRepository $userRepository,
         ProductRepository $productRepository,
         OrderService $orderService
     )
     {
-        $this->repository = $orderrepository;
+        $this->orderRepository = $orderRepository;
         $this->userRepository = $userRepository;
         $this->productRepository = $productRepository;
         $this->orderService = $orderService;
@@ -49,7 +49,7 @@ class ClientCheckoutController extends Controller
     public function index()
     {
         $clientId = $this->userRepository->find(Authorizer::getResourceOwnerId())->client->id;
-        $orders = $this->repository->with(['items'])->scopeQuery(function ($query) use ($clientId) {
+        $orders = $this->orderRepository->with(['items'])->scopeQuery(function ($query) use ($clientId) {
             return $query->where('client_id', '=', $clientId);
         })->paginate();
         return $orders;
@@ -57,10 +57,12 @@ class ClientCheckoutController extends Controller
 
     public function show($id)
     {
-        $o = $this->repository->with(['client','items','cupom'])->find($id);
-        return $o->items->each(function ($item){
-           $item->product;
-        });
+        return $this->orderRepository->with(['client', 'items.product', 'cupom', 'deliveryman'])
+            ->findWhere(['client_id' => Authorizer::getResourceOwnerId(), 'id' => $id]);
+//        $o = $this->repository->with(['client', 'items', 'cupom'])->find($id);
+//        return $o->items->each(function ($item) {
+//            $item->product;
+//        });
     }
 
     public function store(Request $request)
@@ -68,7 +70,7 @@ class ClientCheckoutController extends Controller
         $data = $request->all();
         $data['client_id'] = $this->userRepository->find(Authorizer::getResourceOwnerId())->client->id;
         $o = $this->orderService->create($data);
-        return $this->repository->with(['items'])->find($o->id);
+        return $this->orderRepository->with(['items'])->find($o->id);
     }
 
 }

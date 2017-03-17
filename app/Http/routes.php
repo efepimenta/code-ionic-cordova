@@ -79,12 +79,12 @@ Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => 'oauth'], funct
     Route::get('authenticated', ['as' => 'authenticated', 'uses' => 'UsersController@show']);
 
     Route::group(['prefix' => 'client', 'as' => 'client.', 'middleware' => 'oauth.checkrole:client'], function () {
-        Route::resource('order', 'Api\Client\ClientCheckoutController', ['except' => ['create', 'edit', 'destroy']]);
+        Route::resource('order', 'Api\Client\ClientCheckoutController', ['except' => ['create', 'edit', 'store', 'destroy']]);
     });
 
     Route::group(['prefix' => 'deliveryman', 'as' => 'deliveryman.', 'middleware' => 'oauth.checkrole:deliveryman'], function () {
-        Route::resource('order', 'Api\Client\ClientCheckoutController', ['except' => ['create', 'edit', 'destroy']]);
+        Route::resource('order', 'Api\Deliveryman\DeliverymanCheckoutController', ['except' => ['create', 'edit', 'destroy']]);
+        Route::patch('order/{id}/update-status', ['as' => 'update-status', 'uses' => 'Api\Deliveryman\DeliverymanCheckoutController@updateStatus']);
     });
-
 
 });
