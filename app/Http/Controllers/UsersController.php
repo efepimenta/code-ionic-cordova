@@ -31,7 +31,7 @@ class UsersController extends Controller
 
     public function show()
     {
-        return $this->userRepository->with(['client'])->find(Authorizer::getResourceOwnerId());
+        return $this->userRepository->skipPresenter(false)->with(['client'])->find(Authorizer::getResourceOwnerId());
     }
 
 }

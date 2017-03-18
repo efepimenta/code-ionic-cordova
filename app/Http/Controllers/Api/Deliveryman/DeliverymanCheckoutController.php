@@ -12,6 +12,10 @@ use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 class DeliverymanCheckoutController extends Controller
 {
 
+    private $with = [
+        'client', 'cupom', 'items'
+    ];
+
     /**
      * @var OrderRepository
      */
@@ -34,14 +38,14 @@ class DeliverymanCheckoutController extends Controller
     public function index()
     {
         $id = Authorizer::getResourceOwnerId();
-        return $this->orderRepository->with(['client', 'items'])->scopeQuery(function ($query) use ($id) {
+        return $this->orderRepository->skipPresenter(false)->with($this->with)->scopeQuery(function ($query) use ($id) {
             return $query->where('user_deliveryman_id', '=', $id);
         })->paginate();
     }
 
     public function show($id)
     {
-        return $this->orderRepository->with(['client', 'items'])->getByDeliveryman($id, Authorizer::getResourceOwnerId());
+        return $this->orderRepository->skipPresenter(false)->with($this->with)->getByDeliveryman($id, Authorizer::getResourceOwnerId());
     }
 
     public function updateStatus(Request $request, $id)
@@ -50,7 +54,7 @@ class DeliverymanCheckoutController extends Controller
         if (!$order) {
             abort(400, 'Order não encontrado');
         }
-        return $order;
+        return $order->find($id);
     }
 
 }

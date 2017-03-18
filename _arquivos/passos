@@ -44,4 +44,8 @@ services (tive que fazer quando teve que alterar duas tabelas relacionadas):
 oauth2:
     https://github.com/lucadegasperi/oauth2-server-laravel/blob/master/docs/getting-started/laravel-5.md
     https://github.com/lucadegasperi/oauth2-server-laravel/blob/master/docs/authorization-server/password.md
+transform / presenters
+    em http://fractal.thephpleague.com/ | instrucoes em https://github.com/andersao/l5-repository#fractal-presenter
+    php artisan make:transform Order
+    php artisan make:presenter Order
 
