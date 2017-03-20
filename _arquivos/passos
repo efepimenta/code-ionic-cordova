@@ -48,4 +48,6 @@ transform / presenters
     em http://fractal.thephpleague.com/ | instrucoes em https://github.com/andersao/l5-repository#fractal-presenter
     php artisan make:transform Order
     php artisan make:presenter Order
+configuracao do cors:
+    em https://github.com/barryvdh/laravel-cors
 
