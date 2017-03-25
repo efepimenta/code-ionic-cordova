@@ -14,6 +14,7 @@ use CodeDelivery\Validators\ProductValidator;
  */
 class ProductRepositoryEloquent extends BaseRepository implements ProductRepository
 {
+    protected $skipPresenter = true;
     /**
      * Specify Model class name
      *
@@ -34,7 +35,12 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
 
     public function getList()
     {
-        return $this->model->get(['id', 'name', 'price']);
+        return $this->model->get(['id', 'name','description', 'price']);
+    }
+
+    public function presenter()
+    {
+        return \CodeDelivery\Presenters\ProductPresenter::class;
     }
 
 }

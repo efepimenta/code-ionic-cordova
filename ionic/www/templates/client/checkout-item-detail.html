@@ -1,0 +1,26 @@
+<ion-view>
+    <ion-nav-title>Produto: {{ vm.product.name }}</ion-nav-title>
+    <div class="bar bar-subheader">
+        <h2 class="title">
+            Detalhes do produto
+        </h2>
+    </div>
+    <ion-content class="padding has-subheader">
+        <div class="list card">
+            <div class="item item-avatar">
+                <h2>{{vm.product.name}}</h2>
+                Qtd: {{vm.product.qtd}}<br>
+                <i class="ion ion-cash">{{vm.product.price}}</i>
+            </div>
+            <label class="item item-input">
+                <span class="input-label">Quantidade</span>
+                <input type="text" placeholder="Quantidade" ng-model="vm.new_qtd">
+            </label>
+            <button class="button button-assertive button-full" ng-click="vm.updateQtd()">Alterar Qtd</button>
+            <div class="item item-body">
+                <h2>Descrição</h2>
+                {{vm.product.description}}
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

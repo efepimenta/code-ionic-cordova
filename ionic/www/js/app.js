@@ -3,8 +3,10 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'starter.controllers', 'angular-oauth2'])
-
+angular.module('starter', ['ionic', 'starter.controllers', 'angular-oauth2','starter.services'])
+    .constant('appConfig',{
+        baseUrl: 'http://localhost:8000'
+    })
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
             if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -24,7 +26,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-oauth2'])
     })
     .config(['$stateProvider', '$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {
-            // $urlRouterProvider.otherwise('home');
+            $urlRouterProvider.otherwise('home');
             $stateProvider
                 .state('login', {
                     url: '/login',
@@ -36,10 +38,42 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-oauth2'])
                     templateUrl: 'templates/home.html',
                     controller: 'HomeController as vm'
                 })
+                .state('client', {
+                    abstract: true,
+                    url: '/client',
+                    template: '<ion-nav-view/>'
+                })
+                .state('client.checkout', {
+                    url: '/checkout',
+                    cache: false,
+                    templateUrl: 'templates/client/checkout.html',
+                    controller: 'ClientCheckoutController as vm'
+                })
+                .state('client.checkout_item_detail', {
+                    url: '/checkout/detail/:index',
+                    templateUrl: 'templates/client/checkout-item-detail.html',
+                    controller: 'ClientCheckoutDetailController as vm'
+                })
+                .state('client.checkout_success',{
+                    ul: '/checkout/checkout_success',
+                    templateUrl: 'templates/client/checkout-success.html',
+                    controller: 'ClientCheckoutSuccess as vm'
+                })
+                .state('client.view_products', {
+                    url: '/view_products',
+                    templateUrl: 'templates/client/view-products.html',
+                    controller: 'ClientViewProductsController as vm'
+                })
+                .state('client.view_orders', {
+                    url: '/view_orders',
+                    cache: false,
+                    templateUrl: 'templates/client/view-orders.html',
+                    controller: 'ClientViewOrdersController as vm'
+                })
         }])
-    .config(['OAuthProvider', 'OAuthTokenProvider', function (OAuthProvider, OAuthTokenProvider) {
+    .config(['OAuthProvider', 'OAuthTokenProvider','appConfig', function (OAuthProvider, OAuthTokenProvider, appConfig) {
         OAuthProvider.configure({
-            baseUrl: 'http://localhost:8000',
+            baseUrl: appConfig.baseUrl,
             clientId: 'appid01',
             clientSecret: 'secret',
             grantPath: '/oauth/access_token'
@@ -53,3 +87,4 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angular-oauth2'])
     }]);
 
 angular.module('starter.controllers', []);
+angular.module('starter.services', ['ngResource']);

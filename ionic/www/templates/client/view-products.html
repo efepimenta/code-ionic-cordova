@@ -1,0 +1,20 @@
+<ion-view>
+    <ion-nav-title>Produtos</ion-nav-title>
+    <div class="bar bar-subheader">
+        <h2 class="title">
+            Escolha seu produto
+        </h2>
+
+    </div>
+    <ion-content class="padding has-subheader">
+        <ion-list>
+            <ion-item ng-repeat="product in vm.products track by $index" ng-click="vm.addItem(product)">
+                {{ product.name }}<br>
+                <small>{{ product.description }}</small>
+                <span class="item-note">
+                    <i class="ion ion-cash"> {{ product.price }}</i>
+                </span>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
